@@ -34,8 +34,8 @@ async function fetchData() {
     }
 }
 
-const accessKey = 'gtsCCrPRKXxcPPf8P0toEGHO7guntiAdgSBJuuP99J8';
-//const accessKey = 'IWBzN8Iz_YI1VobBhZLBwZrsZ6A6hwhPS8Ve4wZDJC4';
+//const accessKey = 'gtsCCrPRKXxcPPf8P0toEGHO7guntiAdgSBJuuP99J8';
+const accessKey = 'IWBzN8Iz_YI1VobBhZLBwZrsZ6A6hwhPS8Ve4wZDJC4';
 
 async function getImageUrls(jsonData) {
 
@@ -209,7 +209,7 @@ async function getMenu(data)
                    const paymentStatus = await payOrder();
                    console.log('Payment Status:', paymentStatus);
 
-                   
+
                    if (paymentStatus.paid) 
                     {
                         await thankyouFnc();
