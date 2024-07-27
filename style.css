@@ -14,7 +14,7 @@
 }
 #res-image
 {
-    width:70%;
+    width:70% !important;
 }
 #searchText
 {
@@ -25,7 +25,7 @@
 }
 #small-logo
 {
-    width:50px;
+    width:50px !important;
 }
 #scrollable-div
 {
