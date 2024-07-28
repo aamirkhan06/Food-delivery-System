@@ -1,21 +1,25 @@
-let imageUrls=JSON.parse(localStorage.getItem('imageUrls'));
-let orderData=JSON.parse(localStorage.getItem('orderData'));
-if (!Array.isArray(orderData))
-{
-    orderData=[];
-}
+let imageUrls, orderData;
 
-//to check whether the current file is index.html or order.html
-window.onload = function() {
-    // Check if the current page is index.html
-    if (window.location.pathname.endsWith('/index.html') || window.location.pathname === '/') {
-        getMenu(imageUrls);
-    }
-    else if (window.location.pathname.endsWith('/order.html'))
-    {
-        getMenu(orderData);
-    }
-};
+window.addEventListener('load', function() {
+  imageUrls = JSON.parse(localStorage.getItem('imageUrls'));
+  orderData = JSON.parse(localStorage.getItem('orderData'));
+
+  if (!Array.isArray(orderData)) {
+    orderData = [];
+  }
+
+  if (!Array.isArray(imageUrls)) {
+    console.log("empty imageUrls");
+    imageUrls = [];
+  }
+
+  // Check if the current page is index.html
+  if (window.location.pathname.endsWith('/index.html') || window.location.pathname === '/') {
+    getMenu(imageUrls);
+  } else if (window.location.pathname.endsWith('/order.html')) {
+    getMenu(orderData);
+  }
+});
 
 
 
@@ -25,18 +29,6 @@ window.onload = function() {
 
 
   //search funtion
-
-async function handleSearch(event) {
-    if (event.key === "Enter") {
-      // Perform your search action here
-      event.preventDefault(); // Prevent form submission
-      await fetchData();
-      console.log("Search query:", event.target.value);
-      let searchData=jsonData.filter((item)=>item.name.toLowerCase().includes(event.target.value.toLowerCase()));
-      menuBody.innerHTML="";
-      getMenu(searchData);
-    }
-  }
   
 
 
@@ -126,6 +118,21 @@ async function getMenu(data)
     });
 }
 
+
+
+//serach function:-
+async function handleSearch(event) {
+    if (event.key === "Enter") {
+      // Perform your search action here
+      event.preventDefault(); // Prevent form submission
+      await fetchData();
+      console.log("Search query:", event.target.value);
+      let searchData=imageUrls.filter((item)=>item.name.toLowerCase().includes(event.target.value.toLowerCase()));
+      menuBody.innerHTML="";
+      getMenu(searchData);
+    }
+  }
+
 //take order:-
 
 
@@ -174,6 +181,6 @@ function orderShow()
 function menuShow()
 {
     menuBody.innerHTML="";
-    getMenu(jsonData);
+    getMenu(imageUrls);
 }
  

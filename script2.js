@@ -1,20 +1,34 @@
-window.onload = function() {
-    fetchData();
-};
 
+// Set the flag to true after executing the script
+
+let fetchDataExecuted = localStorage.getItem('fetchDataExecuted') === 'true';
+
+fetchData();
 async function fetchData() {
+       if (fetchDataExecuted) 
+        {
+             return; // Exit the script if it has already been executed
+        }
+        console.log('Fetching data...');
     try {
         const response = await fetch('https://raw.githubusercontent.com/saksham-accio/f2_contest_3/main/food.json');
-        jsonData = await response.json();
+        let jsonData = await response.json();
         // ...
         jsonData=await getImageUrls(jsonData);
+        console.log(jsonData);
         let uniquejsonData=await getUniqueObjectsById(jsonData);
         localStorage.setItem('imageUrls', JSON.stringify(uniquejsonData));
-
+        localStorage.setItem('fetchDataExecuted', 'true'); // Store the flag in localStorage
+        window.location.reload();
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+
+
 }
+
+
+//multiple accesskey for checking for mentor whos checking the proejct:-
 
 //const accessKey = 'gtsCCrPRKXxcPPf8P0toEGHO7guntiAdgSBJuuP99J8';
 //const accessKey = 'IWBzN8Iz_YI1VobBhZLBwZrsZ6A6hwhPS8Ve4wZDJC4';
@@ -22,7 +36,7 @@ const accessKey= 'OWnusYLd3oLt6remxoGpkj9sDpkWWtEZalQsgjzXZPQ';
 
 async function getImageUrls(jsonData) {
 
-    let imageUrls = JSON.parse(localStorage.getItem('imageUrls'));
+    let imageUrls = await JSON.parse(localStorage.getItem('imageUrls'));
 
     if (!Array.isArray(imageUrls))
     {
